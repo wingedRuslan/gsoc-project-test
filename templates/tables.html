@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <!--    Include the required CSS and JavaScript dependencies for the table-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    </head>
+
+    <body>
+        <h1> Bioinformatics posts</h1>
+
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    {% for column in list_columns %}
+                        <th> {{ column}} </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                    <tr>
+                        {% for value in record %}
+                        <td> {{ value }} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Add Table with DataTables-->
+        <script>
+            // wait for the document to be fully ready
+            $(document).ready( function () {
+                // run the DataTables function on the selected table
+                $('#table_id').DataTable();
+            } );
+
+            // Add styling of <body> column
+
+        </script>
+    </body>
+</html>
