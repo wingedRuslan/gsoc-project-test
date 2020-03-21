@@ -115,23 +115,37 @@ def ingestDataToTable(sqliteConnection, cursor, list_columns, xmlRoot):
         print("SQLite connection is closed")
 
 
-def main():
-    # Relative path to the XML file
-    pathToFile = "./dataset/bioinformatics_posts_se.xml"
+def getColumnsFromXML(pathToFile):
+    """
+    Get all the possible values for columns from the bioinformatics_posts_se.xml file.
+
+    :param pathToFile: Relative path to the XML file
+    :return: list of columns values, root element of the XML file
+    """
 
     # Read in the xml file with ElementTree
     tree = ET.parse(pathToFile)
-    root = tree.getroot()
+    xmlRoot = tree.getroot()
 
-    # Store columns keeping the order
+    # Store columns in array
     all_columns = []
 
     # Iterate over all elements in xml
-    for child in root:
+    for child in xmlRoot:
         # Store column name in array keeping the order and its uniqueness
         for attribute in child.attrib:
             if attribute not in all_columns:
                 all_columns.append(attribute)
+
+    return all_columns, xmlRoot
+
+
+def main():
+    # Relative path to the XML file
+    pathToFile = "./dataset/bioinformatics_posts_se.xml"
+
+    # Get all the columns values from the XML file
+    list_columns, xmlRoot = getColumnsFromXML(pathToFile)
 
     # Open a connection to an SQLite database
     sqliteConnection = sqlite3.connect("bioposts.db")
@@ -139,10 +153,10 @@ def main():
     print("Successfully Connected to SQLite")
 
     # Create table in SQLite
-    cursor = createTableDB(sqliteConnection, list_columns=all_columns)
+    cursor = createTableDB(sqliteConnection, list_columns=list_columns)
 
     # INSERT rows from XML file into created table
-    cursor = ingestDataToTable(sqliteConnection, cursor, list_columns=all_columns, xmlRoot=root)
+    cursor = ingestDataToTable(sqliteConnection, cursor, list_columns=list_columns, xmlRoot=xmlRoot)
 
     # Close the connection to database
     cursor.close()
