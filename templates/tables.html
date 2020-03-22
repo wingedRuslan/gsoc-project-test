@@ -2,15 +2,8 @@
 
 <html>
     <head>
-        <!--Include the required CSS and JavaScript dependencies for the "DataTables" -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-
-        <!-- Add Table with DataTables (plug-in for the jQuery Javascript library)-->
-        <script src="../static/dataTables.js"></script>
-        <!-- additional CSS to correctly display the table-->
-        <link rel="stylesheet" href="../static/styles.css">
+        <!--pull css from the style sheet style.css in the static directory-->
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     </head>
 
     <body>
@@ -19,7 +12,6 @@
         <table id="table_id" class="display">
             <thead>
                 <tr>
-                    <th></th>
                     {% for column in list_columns %}
                         <th> {{ column}} </th>
                     {% endfor %}
@@ -28,7 +20,6 @@
             <tbody>
                 {% for record in records %}
                     <tr>
-                        <td></td>
                         {% for value in record %}
                         <td> {{ value }} </td>
                         {% endfor %}
