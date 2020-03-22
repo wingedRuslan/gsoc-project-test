@@ -40,9 +40,6 @@ def createTableDB(sqliteConnection, list_columns):
 
         print("SQLite table created successfully")
 
-        # TODO - Delete this
-        print(sqlite_create_table_query)
-
         return cursor
 
     except sqlite3.Error as error:
