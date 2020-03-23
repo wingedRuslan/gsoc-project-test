@@ -21,12 +21,17 @@ def createTableDB(sqliteConnection, list_columns):
         for column_name in list_columns:
             # Set INTEGER type to column "Id" & make a primary key
             if column_name == "Id":
-                sqlite_create_table_query += column_name + " INTEGER" + " PRIMARY KEY" + ","
+                sqlite_create_table_query += column_name + " INTEGER" + " PRIMARY KEY" + ", "
+            # Set INTEGER type to columns "Score" and "ViewCount"
+            elif column_name == "Score":
+                sqlite_create_table_query += column_name + " INTEGER" + ", "
+            elif column_name == "ViewCount":
+                sqlite_create_table_query += column_name + " INTEGER" + ", "
             else:
-                sqlite_create_table_query += column_name + " TEXT" + ","
+                sqlite_create_table_query += column_name + " TEXT" + ", "
 
-        # Cut the last "," and add proper ending to sql statement
-        sqlite_create_table_query = sqlite_create_table_query[: -1] + ");"
+        # Cut the last ", " and add proper ending to sql statement
+        sqlite_create_table_query = sqlite_create_table_query[: -2] + ");"
 
         # Execute a database operation
         cursor.execute(sqlite_create_table_query)
@@ -83,7 +88,7 @@ def ingestDataToTable(sqliteConnection, cursor, list_columns, xmlRoot):
             for attribute in list_columns:
                 # Check if current row has all needed columns
                 if attribute in child.attrib:
-                    if attribute == "Id":
+                    if attribute in ["Id", "Score", "ViewCount"]:
                         # Set INTEGER type for "Id" value
                         row_values.append(int(child.attrib[attribute]))
                     elif attribute == "Body":
