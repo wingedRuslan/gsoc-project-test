@@ -1,0 +1,5 @@
+# Ignore pycharm files
+__pycache__/
+
+# Ignore database used for test purposes
+test.db
