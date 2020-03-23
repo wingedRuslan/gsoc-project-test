@@ -1,0 +1,10 @@
+Flask==1.1.1
+sqlite3==3.30.0
+
+# for preprocessing text
+beautifulsoup4==4.8.0
+
+# indicate the versions of DataTables
+# datatables==1.10.20
+# jquery==3.4.1
+
