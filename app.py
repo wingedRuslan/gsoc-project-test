@@ -31,5 +31,20 @@ def index():
     # Query the DB to get all the posts in the specified order
     records = readSqliteTable(db_name=DB_NAME, table_name=TABLE_NAME, order_col=ORDER_COL)
 
+    # Get the "search" URL argument
+    search_keyword = request.args.get("search")
+
+    # Store records that contain searched keyword in array
+    recordsWithKeyword = []
+
+    # Check that the search_keyword is provided
+    if search_keyword is not None:
+        for record in records:
+            # Check if the search_keyword is present in title(12th column) or body(5th column) of each post
+            if search_keyword in record[12] or search_keyword in record[5]:
+                recordsWithKeyword.append(record)
+        # Update the records to display
+        records = recordsWithKeyword
+
     # render the template with the columns and data
     return render_template("tables.html", list_columns=list_columns, records=records)
