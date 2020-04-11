@@ -33,7 +33,9 @@ Besides, sorting by Score, ViewCount and searching by keywords are already avail
 That's why I created the 2nd version where I implemented subtasks 2 & 3 without any libraries and tools.  
 These 2 approaches correspond to master (using DataTables) branch and alternative-solution branch (without DataTables).
 
-  - 2nd version without using any libraries, just add CSS to make the table look good.
+  - 2nd version without using any libraries, just add CSS to make the table look good. 
+By way of a query string in the URL, these posts (content of table) may be ordered by view count or score and filtered based on the presence of the search term, either in the title or body of the post. 
+Use the argument "sorting" (/?sorting=Score) to sort the rows according to the specified column and use the "search" argument to search the posts containing keyword either in the title or body of the post. 
 
 ![Returned Table without Datatable](./images/table-plain.png "Table displayed without DataTables")
 
